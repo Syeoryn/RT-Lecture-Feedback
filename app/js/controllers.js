@@ -3,8 +3,14 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-   .controller('HomeCtrl', ['$scope', 'syncData', function($scope, syncData) {
-      syncData('syncedValue').$bind($scope, 'syncedValue');
+   .controller('HomeCtrl', ['$scope', 'syncData', function($scope, $firebase, syncData) {
+      // access firebase ratings
+      var scores = new Firebase('https://lecturefeedback.firebaseio.com/ratings')
+      $scope.sendRating = function(rating){
+         //add new user rating
+         scores.push(rating);
+         $scope.rating=''
+      }
    }])
 
   .controller('ChatCtrl', ['$scope', 'syncData', function($scope, syncData) {
