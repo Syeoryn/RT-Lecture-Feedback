@@ -9,7 +9,7 @@ angular.module('myApp.controllers', [])
       $scope.form = {}
       $scope.sendRating = function(rating){
          //add new user rating
-         scores.child(rating.user).set(rating.rating);
+         scores.child(rating.user).push({rating: rating.rating,time: Firebase.ServerValue.TIMESTAMP});
          $scope.lastRating = rating.rating;
          $scope.form.rating='';
       }
