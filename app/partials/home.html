@@ -1,11 +1,16 @@
-<h2>Home</h2>
+<h2>Rating</h2>
 
 <!-- <p class="status good" ng-show-auth="login">Hello! You are logged in.</p>
-<p class="status" ng-show-auth="logout">Not logged in</p> -->
-<p class="status error" ng-show-auth="error">{{auth.error}}</p>
+<p class="status" ng-show-auth="logout">Not logged in</p>
+<p class="status error" ng-show-auth="error">{{auth.error}}</p> -->
 
-<form ng-submit="sendRating(rating)" ng-controller="HomeCtrl">
-  Rating: <input ng-model="rating" type="text" /> <b>{{rating}}</b>
-</form>
+<div ng-controller="HomeCtrl">
+  <form ng-submit="sendRating({user:form.user,rating:form.rating})">
+    Rating: <input ng-model="form.rating" type="text" placeholder="0-100"/>
+    Username: <input ng-model="form.user" type="text" placeholder="name"/>
+    <input type='submit'/>
+  </form>
+  <text>Last rating: </text> {{ lastRating }}
+</div>
 
 

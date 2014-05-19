@@ -6,10 +6,12 @@ angular.module('myApp.controllers', [])
    .controller('HomeCtrl', ['$scope', 'syncData', function($scope, $firebase, syncData) {
       // access firebase ratings
       var scores = new Firebase('https://lecturefeedback.firebaseio.com/ratings')
+      $scope.form = {}
       $scope.sendRating = function(rating){
          //add new user rating
-         scores.push(rating);
-         $scope.rating=''
+         scores.child(rating.user).set(rating.rating);
+         $scope.lastRating = rating.rating;
+         $scope.form.rating='';
       }
    }])
 
