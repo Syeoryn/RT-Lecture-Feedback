@@ -2,14 +2,16 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', [])
-   .controller('HomeCtrl', ['$scope', '$firebase', 'syncData', function($scope, $firebase, syncData) {
+angular.module('myApp.controllers', ['myApp.services'])
+   .controller('HomeCtrl', ['$scope', '$firebase', 'syncData', '$rootScope', function($scope, $firebase, syncData, $rootScope) {
       // access firebase ratings
       var ratings = new Firebase('https://lecturefeedback.firebaseio.com/ratings');
+      var aggregate = new Firebase('https://lecturefeedback.firebaseio.com/ratings/aggregate');
       var lecture = new Firebase('https://lecturefeedback.firebaseio.com');
       $scope.users = {};
       // bind firebase data to $scope
       $scope.ratings = $firebase(ratings);
+      $scope.aggregate = $firebase(aggregate);
       $scope.lecture = $firebase(lecture);
 
       // Compile all of the latestRating values into one composite rating

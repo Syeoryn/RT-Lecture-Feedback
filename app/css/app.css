@@ -68,3 +68,7 @@ fieldset {
 .ratings {
   display:list-item;
 }
+
+graph-maker {
+  display:inline;
+}

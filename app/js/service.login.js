@@ -7,7 +7,6 @@ angular.module('myApp.service.login', ['firebase', 'myApp.service.firebase'])
          return {
             init: function() {
                auth = new Firebase('https://lecturefeedback.firebaseio.com');
-               console.log('init!');
                return auth = $firebaseSimpleLogin(auth);
             },
 
