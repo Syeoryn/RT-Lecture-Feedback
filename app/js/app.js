@@ -16,7 +16,8 @@ angular.module('myApp',
       }
       else {
          // establish authentication
-         $rootScope.auth = loginService.init('/login');
+         $rootScope.auth = loginService.init();
+         console.log($rootScope.auth);
          $rootScope.FBURL = FBURL;
       }
    }]);

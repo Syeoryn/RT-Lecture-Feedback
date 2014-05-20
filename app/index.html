@@ -7,11 +7,11 @@
 </head>
 <body ng-cloak-auth class="hide">
 
-  <ul class="menu">
+  <ul class="menu" ng-controller="LoginCtrl">
     <li><a href="#/home">home</a></li>
-    <li ng-show-auth="logout,error"><a href="#/login">login</a></li>
+    <li ng-show-auth="logout,error"><a href="" ng-click="login()">login</a></li>
     <li ng-show-auth="login"><a href="#/account">account</a></li>
-    <li ng-show-auth="login"><a href="" ng-click="alert('hello')">logout</a></li>
+    <li ng-show-auth="login"><a href="" ng-click="logout()">logout</a></li>
   </ul>
 
   <div ng-view></div>

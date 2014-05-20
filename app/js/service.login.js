@@ -6,30 +6,16 @@ angular.module('myApp.service.login', ['firebase', 'myApp.service.firebase'])
          var auth = null;
          return {
             init: function() {
-               return auth = $firebaseSimpleLogin(firebaseRef());
+               auth = new Firebase('https://lecturefeedback.firebaseio.com');
+               console.log('init!');
+               return auth = $firebaseSimpleLogin(auth);
             },
 
-            /**
-             * @param {string} email
-             * @param {string} pass
-             * @param {Function} [callback]
-             * @returns {*}
-             */
-            login: function(email, pass, callback) {
+            login: function() {
                assertAuth();
-               // auth.$login('password', {
-               //    email: email,
-               //    password: pass,
-               //    rememberMe: true
-               // }).then(function(user) {
-               //       if( callback ) {
-               //          //todo-bug https://github.com/firebase/angularFire/issues/199
-               //          $timeout(function() {
-               //             callback(null, user);
-               //          });
-               //       }
-               //    }, callback);
-               auth.login('google',{preferRedirect: true});
+               // Redirect to google login page for log in
+               //    (rather than default pop-up)
+               auth.$login('google',{preferRedirect: true});
             },
 
             logout: function() {
