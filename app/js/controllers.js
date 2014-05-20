@@ -18,9 +18,14 @@ angular.module('myApp.controllers', [])
          var newCompositeRating = {user: 'aggregate', rating: 0};
 
          // Add all of the lastRatings to get the newCompositeRating
+         var userCount = 0;
          for( var user in $scope.users ){
+            userCount++;
             newCompositeRating.rating += $scope.ratings.$child(user).lastRating.rating;
          }
+
+         // Normalize newCompositeRating based on the number of users logging ratings
+         newCompositeRating.rating /= userCount;
 
          // Send the new rating to be saved
          $scope.sendRating(newCompositeRating);
@@ -31,19 +36,18 @@ angular.module('myApp.controllers', [])
 
       // Update user ratings on submission
       $scope.sendRating = function(rating){
-         // Add user to users list
-
          // Add new user/ update existing user's ratings
-         var newRating = {rating: rating.rating, time: Firebase.ServerValue.TIMESTAMP}
+         var newRating = {rating: rating.rating, time: Firebase.ServerValue.TIMESTAMP};
          $scope.ratings.$child(rating.user).$add(newRating);
 
          // Track the last rating given by each user
-         var lastRating = {rating: rating.rating, time:Firebase.ServerValue.TIMESTAMP}
+         var lastRating = {rating: rating.rating, time:Firebase.ServerValue.TIMESTAMP};
 
          $scope.ratings.$child(rating.user).$child('lastRating').$set(lastRating).then(function(){
             // Only add user to users list and updateCompositeRating if
             // user data is updated (rather than aggregate data)
             if(rating.user !== 'aggregate'){
+               // Add user to users list
                $scope.users[rating.user] = true;
                $scope.lastRating = rating.rating;
                $scope.updateCompositeRating();
