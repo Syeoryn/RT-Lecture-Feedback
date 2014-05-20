@@ -3,14 +3,28 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-   .controller('HomeCtrl', ['$scope', 'syncData', function($scope, $firebase, syncData) {
+   .controller('HomeCtrl', ['$scope', '$firebase', 'syncData', function($scope, $firebase, syncData) {
       // access firebase ratings
-      var scores = new Firebase('https://lecturefeedback.firebaseio.com/ratings')
-      $scope.form = {}
+      var ratings = new Firebase('https://lecturefeedback.firebaseio.com/ratings');
+      var lecture = new Firebase('https://lecturefeedback.firebaseio.com');
+
+      // bind firebase data to $scope
+      $scope.ratings = $firebase(ratings);
+      $scope.lecture = $firebase(lecture);
+
+      // Update user ratings on submission
       $scope.sendRating = function(rating){
-         //add new user rating
-         scores.child(rating.user).push({rating: rating.rating,time: Firebase.ServerValue.TIMESTAMP});
+         // add new user/ update existing user's ratings
+         var newRating = {rating: rating.rating, time: Firebase.ServerValue.TIMESTAMP}
+         $scope.ratings.$child(rating.user).$add(newRating);
+
+         // track the last rating given by each user
+         var lastRating = {rating: rating.rating, time:Firebase.ServerValue.TIMESTAMP}
+         $scope.ratings.$child(rating.user).$child('lastRating').$set(lastRating);
+
          $scope.lastRating = rating.rating;
+
+         // reset form rating
          $scope.form.rating='';
       }
    }])
