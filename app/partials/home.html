@@ -6,11 +6,12 @@
 
 <div ng-controller="HomeCtrl">
   <form ng-submit="sendRating({user:form.user,rating:form.rating})">
-    Rating: <input ng-model="form.rating" type="number" placeholder="0-100"/>
-    Username: <input ng-model="form.user" type="text" placeholder="name"/>
-    <input type='submit'/>
+    Rating: <input ng-model="form.rating" type="number" placeholder="0-100" class="ratings"/>
+    Username: <input ng-model="form.user" type="text" placeholder="name" class="ratings"/>
+    <input type="submit"/>
   </form>
-  <text>Last rating: </text> {{ lastRating }}
+  <text class="ratings">Last rating: </text> {{ lastRating }}
+  <text clat="ratings">Composite rating: </text> {{ compositeRating }}
 </div>
 
 

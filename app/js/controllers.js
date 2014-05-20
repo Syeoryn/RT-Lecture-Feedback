@@ -24,6 +24,9 @@ angular.module('myApp.controllers', [])
 
          // Send the new rating to be saved
          $scope.sendRating(newCompositeRating);
+
+         // Update compositeRating seen by users
+         $scope.compositeRating = newCompositeRating.rating;
       }
 
       // Update user ratings on submission
