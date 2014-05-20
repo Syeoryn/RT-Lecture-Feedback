@@ -17,18 +17,19 @@ angular.module('myApp.service.login', ['firebase', 'myApp.service.firebase'])
              */
             login: function(email, pass, callback) {
                assertAuth();
-               auth.$login('password', {
-                  email: email,
-                  password: pass,
-                  rememberMe: true
-               }).then(function(user) {
-                     if( callback ) {
-                        //todo-bug https://github.com/firebase/angularFire/issues/199
-                        $timeout(function() {
-                           callback(null, user);
-                        });
-                     }
-                  }, callback);
+               // auth.$login('password', {
+               //    email: email,
+               //    password: pass,
+               //    rememberMe: true
+               // }).then(function(user) {
+               //       if( callback ) {
+               //          //todo-bug https://github.com/firebase/angularFire/issues/199
+               //          $timeout(function() {
+               //             callback(null, user);
+               //          });
+               //       }
+               //    }, callback);
+               auth.login('google',{preferRedirect: true});
             },
 
             logout: function() {

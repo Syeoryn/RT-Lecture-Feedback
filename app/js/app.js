@@ -21,13 +21,3 @@ angular.module('myApp',
       }
    }]);
 
-// var firebase = new Firebase('https://lecturefeedback.firebaseio.com');
-// var scores = new Firebase('https://lecturefeedback.firebaseio.com/ratings');
-// scores.on('value',function(snapshot){
-//    var ratings = snapshot.val();
-//    var compositeRating = 0;
-//    for(var user in ratings){
-//       compositeRating += ratings[user].lastRating.rating;
-//    }
-//    firebase.child('composite').push({rating: compositeRating, time: Firebase.ServerValue.TIMESTAMP});
-// });

@@ -11,6 +11,7 @@
     <li><a href="#/home">home</a></li>
     <li ng-show-auth="logout,error"><a href="#/login">login</a></li>
     <li ng-show-auth="login"><a href="#/account">account</a></li>
+    <li ng-show-auth="login"><a href="" ng-click="alert('hello')">logout</a></li>
   </ul>
 
   <div ng-view></div>
