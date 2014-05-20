@@ -6,7 +6,7 @@
 
 <div ng-controller="HomeCtrl">
   <form ng-submit="sendRating({user:form.user,rating:form.rating})">
-    Rating: <input ng-model="form.rating" type="number" placeholder="-10 to 10" class="ratings"/>
+    Rating: <input ng-model="form.rating" type="number" placeholder="0-10" class="ratings"/>
     Username: <input ng-model="form.user" type="text" placeholder="name" class="ratings"/>
     <input ng-show-auth="login" type="submit"/>
     <input ng-show-auth="logout,error" type="submit" ng-disabled="true"/>
@@ -14,5 +14,5 @@
   <br></br>
   <text class="ratings">Last rating: {{ lastRating }}</text>
   <text class="ratings">Composite rating: {{ compositeRating }}</text>
-  <graph-maker></graph-maker>
+  <graph ng-show-auth="login"></graph>
 </div>

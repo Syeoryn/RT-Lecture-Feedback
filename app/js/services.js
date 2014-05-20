@@ -6,7 +6,7 @@
    angular.module('myApp.services', ['myApp.service.login', 'myApp.service.firebase'])
 
     // Define new directive for making graphs
-     .directive('graphMaker',['$rootScope', function($rootScope){
+     .directive('graph',['$rootScope', function($rootScope){
 
         // Restrict direct to element tags
         return {
@@ -18,7 +18,7 @@
         function link(scope, element, attrs){
           var graph = new Rickshaw.Graph({
             element: element[0],
-            width: 700,
+            width: 1000,
             height: 500,
             series: [{
                color: 'steelblue',
