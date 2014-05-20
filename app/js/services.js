@@ -20,6 +20,8 @@
             element: element[0],
             width: 1000,
             height: 500,
+            min: 0,
+            max: 11,
             series: [{
                color: 'steelblue',
                data: []
@@ -37,6 +39,12 @@
               timeUnit: minutes
           });
           xAxis.render();
+
+          // Add ratings to y-axis
+          var yAxis = new Rickshaw.Graph.Axis.Y({
+            graph: graph,
+          });
+          yAxis.render();
 
           // Adds data points to graph
           var addToGraph = function(snapshot){
