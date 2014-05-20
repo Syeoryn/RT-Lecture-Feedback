@@ -7,24 +7,47 @@ angular.module('myApp.controllers', [])
       // access firebase ratings
       var ratings = new Firebase('https://lecturefeedback.firebaseio.com/ratings');
       var lecture = new Firebase('https://lecturefeedback.firebaseio.com');
-
+      $scope.users = {};
       // bind firebase data to $scope
       $scope.ratings = $firebase(ratings);
       $scope.lecture = $firebase(lecture);
 
+      // Compile all of the latestRating values into one composite rating
+      $scope.updateCompositeRating = function(){
+         // Store compositeRating as a user named 'aggregate'
+         var newCompositeRating = {user: 'aggregate', rating: 0};
+
+         // Add all of the lastRatings to get the newCompositeRating
+         for( var user in $scope.users ){
+            newCompositeRating.rating += $scope.ratings.$child(user).lastRating.rating;
+         }
+
+         // Send the new rating to be saved
+         $scope.sendRating(newCompositeRating);
+      }
+
       // Update user ratings on submission
       $scope.sendRating = function(rating){
-         // add new user/ update existing user's ratings
+         // Add user to users list
+
+         // Add new user/ update existing user's ratings
          var newRating = {rating: rating.rating, time: Firebase.ServerValue.TIMESTAMP}
          $scope.ratings.$child(rating.user).$add(newRating);
 
-         // track the last rating given by each user
+         // Track the last rating given by each user
          var lastRating = {rating: rating.rating, time:Firebase.ServerValue.TIMESTAMP}
-         $scope.ratings.$child(rating.user).$child('lastRating').$set(lastRating);
 
-         $scope.lastRating = rating.rating;
+         $scope.ratings.$child(rating.user).$child('lastRating').$set(lastRating).then(function(){
+            // Only add user to users list and updateCompositeRating if
+            // user data is updated (rather than aggregate data)
+            if(rating.user !== 'aggregate'){
+               $scope.users[rating.user] = true;
+               $scope.lastRating = rating.rating;
+               $scope.updateCompositeRating();
+            }
+         });
 
-         // reset form rating
+         // Reset form rating
          $scope.form.rating='';
       }
    }])
