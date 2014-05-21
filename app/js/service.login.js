@@ -14,7 +14,7 @@ angular.module('myApp.service.login', ['firebase', 'myApp.service.firebase'])
                assertAuth();
                // Redirect to google login page for log in
                //    (rather than default pop-up)
-               auth.$login('google',{preferRedirect: true}).then(function(user){alert()});
+               auth.$login('google',{preferRedirect: false, scope:'profile'}).then(function(user){$rootScope.uid = user.uid});
             },
 
             logout: function() {

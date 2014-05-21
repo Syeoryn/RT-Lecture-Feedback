@@ -38,12 +38,14 @@ angular.module('myApp.controllers', ['myApp.services'])
 
       // Update user ratings on submission
       $scope.sendRating = function(rating){
+         rating.user = rating.user || $rootScope.uid;
+         console.log(rating);
          // Add new user/ update existing user's ratings
          var newRating = {rating: rating.rating, time: Firebase.ServerValue.TIMESTAMP};
          $scope.ratings.$child(rating.user).$add(newRating);
 
          // Track the last rating given by each user
-         var lastRating = {rating: rating.rating, time:Firebase.ServerValue.TIMESTAMP};
+         var lastRating = newRating;
 
          $scope.ratings.$child(rating.user).$child('lastRating').$set(lastRating).then(function(){
             // Only add user to users list and updateCompositeRating if
@@ -86,6 +88,7 @@ angular.module('myApp.controllers', ['myApp.services'])
       $scope.login = function(cb) {
          $scope.err = null;
          loginService.login();
+         console.log('login!', loginService.uid);
       };
 
       $scope.logout = function(cb) {
