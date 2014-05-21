@@ -5,13 +5,8 @@
 <p class="status error" ng-show-auth="error">{{auth.error}}</p>
 
 <div ng-controller="HomeCtrl">
-  <form ng-submit="sendRating({rating:form.rating})">
-    Rating: <input ng-model="form.rating" type="number" placeholder="0-10" class="ratings"/>
-    <input ng-show-auth="login" type="submit"/>
-    <input ng-show-auth="logout,error" type="submit" ng-disabled="true"/>
-  </form>
-  <br></br>
-  <text class="ratings">Last rating: {{ lastRating }}</text>
-  <text class="ratings">Composite rating: {{ compositeRating }}</text>
   <graph ng-show-auth="login"></graph>
+  <label for="rate" ng-show-auth="login">0</label>
+  <input type="range" id="rate" min="0" max="10" step="0.1" ng-mouseup="sendRating({rating:rating})" ng-show-auth="login" ng-model="rating"/>
+  <label for="rate" ng-show-auth="login">10</label>
 </div>

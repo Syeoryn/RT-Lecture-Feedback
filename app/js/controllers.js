@@ -39,7 +39,6 @@ angular.module('myApp.controllers', ['myApp.services'])
       // Update user ratings on submission
       $scope.sendRating = function(rating){
          rating.user = rating.user || $rootScope.uid;
-         console.log(rating);
          // Add new user/ update existing user's ratings
          var newRating = {rating: rating.rating, time: Firebase.ServerValue.TIMESTAMP};
          $scope.ratings.$child(rating.user).$add(newRating);
@@ -59,7 +58,6 @@ angular.module('myApp.controllers', ['myApp.services'])
          });
 
          // Reset form rating
-         $scope.form.rating='';
       }
    }])
 
@@ -88,7 +86,6 @@ angular.module('myApp.controllers', ['myApp.services'])
       $scope.login = function(cb) {
          $scope.err = null;
          loginService.login();
-         console.log('login!', loginService.uid);
       };
 
       $scope.logout = function(cb) {
